@@ -1,24 +1,33 @@
 #include <iostream>
 #include<fstream>
 #include<iomanip>
+
+
 using namespace std;
+
 int main(int argc, char *argv[]){
+    
     if(argc != 2){
         cout << "\nusage: "<< argv[0] <<" <filename>" <<endl;
         return 0;
     }
+    
     ifstream infile (argv[1]);
+    
     if(!infile.is_open()){
         cout << "\nError: Could not open file or file may not even exist." <<endl;
         return 0;
     }
+    
     string state,prev_state="";
     float time,total_time=0;
     int ups,downs,up_TO_down,last_down,lines=0;
+    
     while(!infile.eof()){
         prev_state=state;
         infile >> state;
         lines++;
+        
         if(state=="up"){
                 infile>>time;
                 ups++;
@@ -31,7 +40,11 @@ int main(int argc, char *argv[]){
         }
     }
     infile.close();
-    if(state=="up"){total_time-=time; ups--;}
+    
+    if(state=="up"){
+        total_time-=time; 
+        ups--;
+    }
     else downs--;
     lines--;
     cout <<"**************************************************"<<endl;
